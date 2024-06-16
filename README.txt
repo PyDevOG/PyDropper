@@ -6,6 +6,8 @@ https://www.python.org/downloads/
 
 *Run Setup_env.bat
 
-*copy and paste logo to C:\Windows 
+*Create hwid pastebin and paste your hwid (or just remove it) 
 
-Wait for admin to respond for you copy of PyDropper.
+*Run script.
+
+I TAKE NO RESPONSIBILITY FOR HOW YOU USE THIS!!! EDUCATIONAL PURPOSES ONLY! 
