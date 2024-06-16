@@ -3,7 +3,3 @@ To use the sign tool you need to install Windows SDK.
 https://developer.microsoft.com/en-us/windows/downloads/sdk-archive/
 
 Choose your version of windows. 
-
-Once installed find it on your system. Send the Path to signtool.exe to the admininstrator of PyCrypt.
-
-It should look something like this...C:\\Program Files (x86)\\Windows Kits\\10\\App Certification Kit\\signtool.exe
