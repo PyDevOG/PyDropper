@@ -2,7 +2,7 @@ This is a python script. You need to install Python. When Installing python make
 
 https://www.python.org/downloads/
 
-*Run Hwid Gen. Send the Hwid to admin of PyDropper. 
+*Run Hwid Gen. 
 
 *Run Setup_env.bat
 
