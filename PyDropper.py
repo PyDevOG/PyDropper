@@ -159,8 +159,7 @@ def on_window_close():
     on_decline()
 
 window = tk.Tk()
-window.title("Terms of Service")
-window.iconbitmap(r'C:\Windows\logo.ico')
+window.title("Terms of Service") 
 window.protocol("WM_DELETE_WINDOW", on_window_close)
 
 text = tk.Text(window, wrap="word", height=30, width=80)
