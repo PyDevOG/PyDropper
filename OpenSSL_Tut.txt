@@ -1,0 +1,136 @@
+*HOW TO CREATE YOUR OWN SELF SIGNED DIGITAL CERT TO SIGN YOUR EXECUTABLES WITH PYCRYPT*
+
+
+Step 1: Install OpenSSL on Windows
+Download OpenSSL:
+
+Go to the OpenSSL Windows binaries page.
+Download the appropriate version for your system (Win64 OpenSSL for 64-bit or Win32 OpenSSL for 32-bit). Generally, you would choose the "full" installer unless you have specific needs.
+
+(download load to Shining Light Productions) https://slproweb.com/products/Win32OpenSSL.html
+
+Run the Installer:
+
+Run the downloaded installer.
+Follow the prompts to install OpenSSL. You can typically accept the default settings, but make sure to note the installation path (e.g., C:\Program Files\OpenSSL-Win64).
+
+Add OpenSSL to Your System PATH:
+
+Right-click on This PC or Computer on the desktop or in File Explorer and select Properties.
+Click on Advanced system settings.
+
+In the System Properties window, click on the Environment Variables button.
+In the Environment Variables window, find the Path variable in the System variables section and select it, then click Edit.
+
+In the Edit Environment Variable window, click New and add the path to the bin directory of your OpenSSL installation (e.g., C:\Program Files\OpenSSL-Win64\bin).
+
+Click OK on all windows to close them.
+Verify the Installation:
+
+Open a Command Prompt and type openssl version.
+You should see the version of OpenSSL that you installed.
+-------------------------------------------------------------------------
+Step 2: Create a Self-Signed Digital Certificate
+Open a Command Prompt:
+
+Open a Command Prompt with administrative privileges.
+Generate a Private Key:
+
+Run the following command to generate a private key. This will create a 2048-bit RSA key.
+
+sh
+Copy code
+openssl genpkey -algorithm RSA -out private.key -aes256
+
+You will be prompted to enter a passphrase to secure the private key.
+-------------------------------------------------------------------------------------------
+Create a Certificate Signing Request (CSR):
+
+Run the following command to create a CSR. This will prompt you for information about the certificate (e.g., country, state, organization).
+
+sh
+Copy code
+openssl req -new -key private.key -out request.csr
+
+Make sure to fill in the details accurately. The Common Name (CN) field is usually the domain name for which you are generating the certificate.
+---------------------------------------------------------------------------------------------------------------
+Generate a Self-Signed Certificate:
+
+Run the following command to generate a self-signed certificate valid for 365 days.
+
+sh
+Copy code
+openssl x509 -req -days 365 -in request.csr -signkey private.key -out certificate.crt
+----------------------------------------------------------------------------------------
+Verify the Certificate:
+
+You can verify the contents of your new certificate with the following command:
+
+
+sh
+Copy code
+openssl x509 -in certificate.crt -text -noout
+
+
+
+*Summary of Files Created:
+private.key: Your private key file.
+request.csr: Your certificate signing request.
+certificate.crt: Your self-signed certificate.
+
+
+You now have a self-signed digital certificate that you can use for testing or other purposes. If you need further assistance with any of these steps or additional details on how to use the certificate, let me know!
+
+---------------------------------------------------------------------------------------------------------------------
+
+Step-by-Step Guide to Create a .pfx File
+
+1. Ensure OpenSSL is Installed and in Your Path:
+
+*Make sure OpenSSL is installed and added to your system PATH as described in the previous steps.
+Prepare Your Files:
+
+2. Make sure you have the following files ready:
+
+*private.key: Your private key file.
+certificate.crt: Your self-signed certificate.
+intermediate.crt (optional): Any intermediate certificate if you have one.
+
+3. Combine the Certificate and Private Key into a .pfx File:
+
+*Open a Command Prompt window.
+Navigate to the directory where your files are located.
+
+4. Run the following command to create the .pfx file:
+sh
+Copy code
+openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt -certfile intermediate.crt
+
+If you do not have an intermediate certificate, you can omit the -certfile intermediate.crt part:
+sh
+Copy code
+openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt
+
+5. Enter Export Password:
+
+*You will be prompted to enter an export password. This password is used to protect the .pfx file. Remember this password because you will need it when you import the .pfx file.
+
+6. Verify the .pfx File:
+
+*After running the command, you should see certificate.pfx in your current directory.
+
+Example Commands:
+Without Intermediate Certificate:
+
+sh
+Copy code
+openssl pkcs12 -export -out certificate.pfx -inkey private.key -in certificate.crt
+With Intermediate Certificate:
+
+sh
+Copy code
+openssl pkcs12 -export -out certificate.pfx -inkey private.key -in
+
+
+
+
